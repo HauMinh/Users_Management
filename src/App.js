@@ -8,7 +8,6 @@ function App() {
     <div className='app-container'>
       <Header/>
       <TableUsers/>
-      trinh minh hâu
     </div>
   );
 }
