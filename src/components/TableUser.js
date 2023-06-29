@@ -17,7 +17,7 @@ const TableUsers = (props) => {
     }, [])
     
     const getAllUser= ()=>{
-      
+      UserService.getAllUser
     }
     return (
       <>
@@ -25,7 +25,7 @@ const TableUsers = (props) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
+              <th>First Namew</th>
               <th>Last Name</th>
               <th>Username</th>
             </tr>
