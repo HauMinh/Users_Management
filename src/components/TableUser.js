@@ -32,7 +32,7 @@ const TableUsers = (props) => {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>Id</th>
+              <th>ID</th>
               <th>Email</th>
               <th>First Name</th>
               <th>Last Name</th>
