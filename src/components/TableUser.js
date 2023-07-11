@@ -2,6 +2,7 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import Table from 'react-bootstrap/Table';
 import {fetchAllUser} from '../services/UserService';
+import ReactPaginate from 'react-paginate';
 
 const TableUsers = (props) => {
     const[listUser, setListUser] = useState([]);
@@ -26,6 +27,9 @@ const TableUsers = (props) => {
       }
     }
 
+    const handlePageClick = ()=>{
+      
+    }
 
      return (
       <>
@@ -53,6 +57,24 @@ const TableUsers = (props) => {
             }
           </tbody>
         </Table>
+        <ReactPaginate 
+          previousLabel="< previous"
+          nextLabel="next >"
+          pageCount= {69}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLabel="..."
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+        />   
       </>
     );
 }
