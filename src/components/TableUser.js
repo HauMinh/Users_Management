@@ -6,33 +6,33 @@ import ReactPaginate from 'react-paginate';
 
 const TableUsers = (props) => {
     const[listUser, setListUser] = useState([]);
+    const [totalUsers, setTotalUsers]= useState(0);
+    const [totalPageNumber, setTotalPageNumber]= useState(0);
+    
 
     useEffect(()=>{
       //call api
-        // axios.get('https://reqres.in/api/users?page=1')
-        //   .then( res => {
-        //     console.log(res);
-        //   })
-        //   .catch( error => {
-        //     console.log(error);
-        //   });
         getAllUser();
+
     }, [])
     
-    const getAllUser= async ()=>{
-      let res = await fetchAllUser();
-      console.log("res", res)
+    const getAllUser= async (page)=>{
+      let res = await fetchAllUser(page);
+      //console.log("res", res)
       if(res && res.data){
         setListUser(res.data)
+        setTotalUsers(res.total)
+        setTotalPageNumber(res.total_pages)
       }
     }
-
-    const handlePageClick = ()=>{
-      
+   
+    const handlePageClick = (event)=>{
+        getAllUser(+event.selected + 1) 
+        //thêm dấu cộng phía trước event nếu như string thì có thể chuyển sang number
     }
 
      return (
-      <>
+      <><br/><br/>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -60,7 +60,7 @@ const TableUsers = (props) => {
         <ReactPaginate 
           previousLabel="< previous"
           nextLabel="next >"
-          pageCount= {69}
+          pageCount= {totalPageNumber}
           pageRangeDisplayed={5}
           onPageChange={handlePageClick}
           pageClassName="page-item"
