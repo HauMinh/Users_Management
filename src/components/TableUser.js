@@ -32,7 +32,7 @@ const TableUsers = (props) => {
     }
 
      return (
-      <><br/><br/>
+      <><br/>
         <Table striped bordered hover>
           <thead>
             <tr>
