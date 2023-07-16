@@ -1,14 +1,23 @@
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
 import {useEffect, useState} from 'react';
 import Table from 'react-bootstrap/Table';
 import {fetchAllUser} from '../services/UserService';
-import ReactPaginate from 'react-paginate';
+import ModelAddNewUser from './ModelAddNewUser';
 
 const TableUsers = (props) => {
     const[listUser, setListUser] = useState([]);
     const [totalUsers, setTotalUsers]= useState(0);
     const [totalPageNumber, setTotalPageNumber]= useState(0);
     
+    const [isShowModelAddNew, setisShowModelAddNew]= useState(false);
+    const handleClose = ()=>{
+      setisShowModelAddNew(false);
+    }
+    const handleUpdateUser = (user)=>{
+      setListUser([user, ...listUser])
+    }
+
 
     useEffect(()=>{
       //call api
@@ -33,6 +42,10 @@ const TableUsers = (props) => {
 
      return (
       <><br/>
+       <div className="my-3 add-new">
+          <span><b>list users:</b> </span>
+          <button className="btn btn-success" onClick={()=>setisShowModelAddNew(true)}>Add new user</button>
+        </div>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -74,6 +87,12 @@ const TableUsers = (props) => {
           breakLinkClassName="page-link"
           containerClassName="pagination"
           activeClassName="active"
+        />
+
+        <ModelAddNewUser
+          show={isShowModelAddNew}
+          handleClose={handleClose}
+          handleUpdateUser={ handleUpdateUser}
         />   
       </>
     );
