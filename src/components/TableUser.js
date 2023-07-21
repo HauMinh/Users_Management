@@ -4,6 +4,8 @@ import {useEffect, useState} from 'react';
 import Table from 'react-bootstrap/Table';
 import {fetchAllUser} from '../services/UserService';
 import ModelAddNewUser from './ModelAddNewUser';
+import ModelEditUser from './ModelEditUser';
+
 
 const TableUsers = (props) => {
     const[listUser, setListUser] = useState([]);
@@ -11,9 +13,14 @@ const TableUsers = (props) => {
     const [totalPageNumber, setTotalPageNumber]= useState(0);
     
     const [isShowModelAddNew, setisShowModelAddNew]= useState(false);
+    const [isShowModelEdit, setisShowModelEdit]= useState(false);
+    const [dataUserEdit, setDataUserEdit]= useState([]);
+
     const handleClose = ()=>{
       setisShowModelAddNew(false);
+      setisShowModelEdit(false)
     }
+
     const handleUpdateUser = (user)=>{
       setListUser([user, ...listUser])
     }
@@ -40,6 +47,12 @@ const TableUsers = (props) => {
         //thêm dấu cộng phía trước event nếu như string thì có thể chuyển sang number
     }
 
+    const handleEditUser = (user) => {
+       setDataUserEdit(user);
+       setisShowModelEdit(true);
+
+    }
+
      return (
       <><br/>
        <div className="my-3 add-new">
@@ -53,17 +66,25 @@ const TableUsers = (props) => {
               <th>Email</th>
               <th>First Name</th>
               <th>Last Name</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {listUser && listUser.length > 0 &&
               listUser.map((item, index) =>{
                 return(
-                  <tr key={`user-${index}`}>
+                  <tr key={`user-${index}`}> 
                     <td>{item.id}</td>
                     <td>{item.email}</td>
                     <td>{item.first_name}</td>
                     <td>{item.last_name}</td>
+                    <td>
+                      <button 
+                        className='btn btn-warning mx-3'
+                        onClick={()=>handleEditUser(item)}
+                      >Edit</button>
+                      <button className='btn btn-danger'>Delete</button>        
+                    </td>
                   </tr>
                 )
               })
@@ -93,7 +114,12 @@ const TableUsers = (props) => {
           show={isShowModelAddNew}
           handleClose={handleClose}
           handleUpdateUser={ handleUpdateUser}
-        />   
+        /> 
+        <ModelEditUser
+          show={isShowModelEdit}
+          handleClose={handleClose}
+          dataUserEdit={dataUserEdit}
+        />  
       </>
     );
 }
