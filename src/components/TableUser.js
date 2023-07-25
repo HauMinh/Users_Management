@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import {fetchAllUser} from '../services/UserService';
 import ModelAddNewUser from './ModelAddNewUser';
 import ModelEditUser from './ModelEditUser';
+import _ from "lodash";
 
 
 const TableUsers = (props) => {
@@ -23,6 +24,14 @@ const TableUsers = (props) => {
 
     const handleUpdateUser = (user)=>{
       setListUser([user, ...listUser])
+    }
+    
+    const handleEditUserFromeModel = (user)=>{
+      let cloneListUser= _.cloneDeep(listUser)
+      let index = listUser.findIndex(item =>item.id ===user.id)
+      cloneListUser[index].first_name = user.first_name;
+
+      setListUser(cloneListUser);
     }
 
 
@@ -119,6 +128,7 @@ const TableUsers = (props) => {
           show={isShowModelEdit}
           handleClose={handleClose}
           dataUserEdit={dataUserEdit}
+          handleEditUserFromeModel={handleEditUserFromeModel}
         />  
       </>
     );
