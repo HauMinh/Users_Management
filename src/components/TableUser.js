@@ -6,7 +6,7 @@ import {fetchAllUser} from '../services/UserService';
 import ModelAddNewUser from './ModelAddNewUser';
 import ModelEditUser from './ModelEditUser';
 import _ from "lodash";
-
+import ModelConfirm from './ModelConfirm';
 
 const TableUsers = (props) => {
     const[listUser, setListUser] = useState([]);
@@ -14,12 +14,19 @@ const TableUsers = (props) => {
     const [totalPageNumber, setTotalPageNumber]= useState(0);
     
     const [isShowModelAddNew, setisShowModelAddNew]= useState(false);
+
     const [isShowModelEdit, setisShowModelEdit]= useState(false);
     const [dataUserEdit, setDataUserEdit]= useState([]);
 
+    const [isShowModelDelete, setisShowModelDelete]= useState(false);
+    const [dataUserDelete, setDataUserDelete]= useState([]);
+
+
+
     const handleClose = ()=>{
       setisShowModelAddNew(false);
-      setisShowModelEdit(false)
+      setisShowModelEdit(false);
+      setisShowModelDelete(false);
     }
 
     const handleUpdateUser = (user)=>{
@@ -61,8 +68,13 @@ const TableUsers = (props) => {
        setisShowModelEdit(true);
 
     }
+    
+    const handleDeleteUser = (user) =>{
+      setDataUserDelete(user);
+      setisShowModelDelete(true);
+    }
 
-     return (
+    return (
       <><br/>
        <div className="my-3 add-new">
           <span><b>list users:</b> </span>
@@ -92,7 +104,10 @@ const TableUsers = (props) => {
                         className='btn btn-warning mx-3'
                         onClick={()=>handleEditUser(item)}
                       >Edit</button>
-                      <button className='btn btn-danger'>Delete</button>        
+                      <button 
+                        onClick={()=>handleDeleteUser(item)}
+                        className='btn btn-danger'
+                      >Delete</button>        
                     </td>
                   </tr>
                 )
@@ -129,7 +144,12 @@ const TableUsers = (props) => {
           handleClose={handleClose}
           dataUserEdit={dataUserEdit}
           handleEditUserFromeModel={handleEditUserFromeModel}
-        />  
+        />
+        <ModelConfirm
+          show={isShowModelDelete}
+          handleClose={handleClose}
+          dataUserDelete={dataUserDelete}
+        />
       </>
     );
 }

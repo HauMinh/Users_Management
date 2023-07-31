@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 
 
 const ModelConfirm = (props) => {
-    const {show, handleClose} = props;
+    const {show, handleClose, dataUserDelete} = props;
     
 
    const confirmDelete = () =>{
@@ -23,11 +23,12 @@ const ModelConfirm = (props) => {
           keyboard={false}
         >
         <Modal.Header closeButton>
-          <Modal.Title>Add new user</Modal.Title>
+          <Modal.Title>Delete a user</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className='body-add-new'>
-            You definitely want to delete?
+            You definitely want to delete user? <br/>
+            Email is  <b>{dataUserDelete.email}</b>
           </div>
         </Modal.Body>
         <Modal.Footer>
