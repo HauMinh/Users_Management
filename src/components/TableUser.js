@@ -74,6 +74,14 @@ const TableUsers = (props) => {
       setisShowModelDelete(true);
     }
 
+    const handleDeleteUserFromModel = (user) =>{
+      let cloneListUser= _.cloneDeep(listUser);
+      cloneListUser = cloneListUser.filter(item =>item.id !== user.id)
+      setListUser(cloneListUser);
+    }
+
+    
+
     return (
       <><br/>
        <div className="my-3 add-new">
@@ -149,6 +157,7 @@ const TableUsers = (props) => {
           show={isShowModelDelete}
           handleClose={handleClose}
           dataUserDelete={dataUserDelete}
+          handleDeleteUserFromModel = {handleDeleteUserFromModel}
         />
       </>
     );
